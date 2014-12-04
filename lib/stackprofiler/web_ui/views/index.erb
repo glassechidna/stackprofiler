@@ -1,0 +1,45 @@
+<% content_for :navbar_left do %>
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profiles <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+      <% @runs.each_with_index do |run, run_id| %>
+        <li><a href="/__stackprofiler/?run_id=<%= run_id %>"><%= run.url %></a>&nbsp;(<b><%= run.duration %>s</b>)</li>
+      <% end %>
+    </ul>
+  </li>
+<% end %>
+
+<div id="foo" style="">
+  <div id="a">
+    <div id="jstree_demo"></div>
+  </div>
+  <div id="b">
+    <div id="source-display"></div>
+  </div>
+</div>
+
+<script>
+  $(function() {
+    $('#foo').split({
+      orientation: 'horizontal',
+      limit: 10,
+      position: '40%'
+    });
+
+    var $tree = $('#jstree_demo');
+
+    $tree.jstree({
+      core: {
+        data: {
+          url: '/__stackprofiler/json?run_id=<%= @run_id %>'
+        }
+      }
+    });
+
+    $tree.on("changed.jstree", function (e, data) {
+      var addrs = data.node.data.addrs;
+      var url = "/__stackprofiler/code/" + addrs[0] + "?run_id=<%= @run_id %>";
+      $("#source-display").load(url);
+    });
+  });
+</script>

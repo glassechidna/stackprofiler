@@ -1,0 +1,79 @@
+<html>
+<head>
+  <link rel="stylesheet" href="/__stackprofiler/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/__stackprofiler/css/splitter.css" />
+  <link rel="stylesheet" href="/__stackprofiler/jstree/themes/default/style.min.css" />
+  <link rel="stylesheet" href="/__stackprofiler/css/coderay.css" />
+  <link rel="stylesheet" href="/__stackprofiler/octicons/octicons.css" />
+  <script src="/__stackprofiler/js/jquery.min.js"></script>
+  <script src="/__stackprofiler/js/bootstrap.min.js"></script>
+  <script src="/__stackprofiler/jstree/jstree.js"></script>
+  <script src="/__stackprofiler/js/splitter.js"></script>
+  <style>
+    body, html {
+      height: 100%;
+    }
+
+    .fill {
+      top: 67px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      position: absolute;
+      width: auto;
+      height: auto;
+    }
+
+    #github-link {
+      margin-top: -6px;
+      margin-bottom: -6px;
+    }
+
+    #foo {
+      height: 100%;
+    }
+
+    .jstree-default a {
+      white-space:normal !important; height: auto;
+    }
+    .jstree-anchor {
+      height: auto !important;
+    }
+    .jstree-default li > ins {
+      vertical-align:top;
+    }
+    .jstree-leaf {
+      height: auto;
+    }
+    .jstree-leaf a{
+      height: auto !important;
+    }
+  </style>
+</head>
+<body>
+<div class="navbar navbar-default">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+    </button>
+    <a class="navbar-brand" href="#">Stackprofiler</a>
+  </div>
+  <div class="navbar-collapse collapse navbar-responsive-collapse">
+    <ul class="nav navbar-nav">
+      <%= yield_content :navbar_left %>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <%= yield_content :navbar_right %>
+      <li><a id="github-link" href="https://github.com/glassechidna/stackprofiler"><span class="mega-octicon octicon-mark-github"></span></a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="container fill">
+  <div class="row">
+    <div class="col-md-12">
+      <%= yield %>
+    </div>
+  </div>
+</div>
+</body>
+</html>
