@@ -1,31 +1,24 @@
 module Stackprofiler
-  module Filter
-    class QuickMethodElision
-      def filter root, frames
-        root.each do |node|
-          next if node == root
-
-          addr = node.name.to_i
-          frame = frames[addr]
-          if frame[:samples] < 10
-            parent = node.parent
-            node.remove_from_parent!
-
-            node.children.each do |n|
-              n.remove_from_parent!
-              parent << n
-            end
-          end
-        end
-        root
-      end
-    end
-  end
-
   class WebUI < Sinatra::Base
     helpers Sinatra::ContentFor
     set :views, proc { File.join(root, 'web_ui', 'views') }
     set :public_folder, proc { File.join(root, 'web_ui', 'public') }
+
+    def initialize(options={})
+      if options[:file]
+        data = File.read options[:file]
+        run = Oj.load data
+        RunDataSource.runs << run
+      end
+
+      super
+    end
+
+    configure :development do
+      require 'better_errors'
+      use BetterErrors::Middleware
+      BetterErrors.application_root = __dir__
+    end
 
     get '/' do
       @runs = RunDataSource.runs
@@ -45,7 +38,7 @@ module Stackprofiler
       content_type 'application/json'
       run_id = params[:run_id].to_i
       run = RunDataSource.runs[run_id]
-      run.profile[:frames].to_json
+      run.profile[:frames].sort_by {|addr, frame| frame[:samples] }.to_json
     end
 
     get '/code/:addr' do
@@ -60,15 +53,15 @@ module Stackprofiler
       frame = frames[addr]
       halt 404 if frame.nil?
 
-      file, first_line = frame.values_at :file, :line
-      first_line ||= 1
+      @file, @first_line = frame.values_at :file, :line
+      @first_line ||= 1
 
-      last_line = frame[:lines].keys.max || first_line + 5
-      line_range = first_line..last_line
+      last_line = frame[:lines].keys.max || @first_line + 5
+      line_range = @first_line..last_line
 
-      @source = File.readlines(file).select.with_index {|line, idx| line_range.include? (idx + 1) }.join
+      @source = File.readlines(@file).select.with_index {|line, idx| line_range.include? (idx + 1) }.join
       @output = CodeRay.scan(@source, :ruby).div(wrap: nil).lines.map.with_index do |code, idx|
-        line_index = idx + first_line
+        line_index = idx + @first_line
         samples = frame[:lines][line_index] || []
         {code: code, samples: samples.first}
       end
@@ -85,7 +78,7 @@ module Stackprofiler
       stacks = run.stacks
 
       root_addr = stacks[0][0].to_s
-      root = Tree::TreeNode.new root_addr, {text: 'root', addrs: [root_addr]}
+      root = Tree::TreeNode.new root_addr, {addrs: [root_addr]}
 
       stacks.each do |stack|
         prev = root
@@ -93,7 +86,7 @@ module Stackprofiler
           addr = addr.to_s
           node = prev[addr]
           if node.nil?
-            hash = {count: 0, text: frames[addr.to_i][:name], addrs: [addr]}
+            hash = {count: 0, addrs: [addr]}
             node = Tree::TreeNode.new(addr, hash)
             prev << node
           end
@@ -102,9 +95,15 @@ module Stackprofiler
         end
       end
 
-      filters = [Filter::StackprofilerElision.new, Filter::CompressTree.new, Filter::JsTree.new]
-      filtered = filters.reduce(root) {|memo, filter| filter.filter(memo, frames) }
+      filters = [
+        Filter::StackprofilerElision.new,
+        Filter::RemoveGems.new,
+        Filter::QuickMethodElision.new,
+        Filter::CompressTree.new,
+        Filter::JsTree.new,
+      ]
 
+      filtered = filters.reduce(root) {|memo, filter| filter.filter(memo, frames) }
       Oj.dump(filtered, mode: :compat)
     end
   end
