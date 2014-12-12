@@ -1,6 +1,10 @@
 module Stackprofiler
   module Filter
     class JsTree
+      def initialize(options={})
+
+      end
+
       def filter root, frames
         addrs = root.content[:addrs]
         name = addrs.first.to_i

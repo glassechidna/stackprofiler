@@ -1,6 +1,10 @@
 module Stackprofiler
   module Filter
     class QuickMethodElision
+      def initialize(options={})
+
+      end
+
       def filter root, frames
         # depths = Hash.new {|h, k| h[k] = [] }
         # root.each {|n| depths[n.node_depth].push n }

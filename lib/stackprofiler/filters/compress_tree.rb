@@ -1,6 +1,10 @@
 module Stackprofiler
   module Filter
     class CompressTree
+      def initialize(options={})
+
+      end
+
       def filter root, frames
         root.reverse_depth_first do |node|
           if node.out_degree == 1

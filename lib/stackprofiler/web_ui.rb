@@ -69,8 +69,9 @@ module Stackprofiler
       erb :code, layout: nil
     end
 
-    get '/json' do
-      content_type 'application/json'
+    post '/json' do
+      json_params = Oj.strict_load(request.body.read, nil)
+      params.merge!(json_params)
 
       run_id = params[:run_id].to_i
       run = RunDataSource.runs[run_id]
@@ -95,15 +96,21 @@ module Stackprofiler
         end
       end
 
-      filters = [
-        Filter::StackprofilerElision.new,
-        Filter::RemoveGems.new,
-        Filter::QuickMethodElision.new,
-        Filter::CompressTree.new,
-        Filter::JsTree.new,
-      ]
+      filter_map = {
+        stackprofiler_elision: Filter::StackprofilerElision,
+        remove_gems: Filter::RemoveGems,
+        quick_method_elision: Filter::QuickMethodElision,
+        compress_tree: Filter::CompressTree,
+      }
+
+      filters = params[:filters].map do |key, opts|
+        klass = filter_map[key.to_sym]
+        klass.new(opts) if klass.present?
+      end.compact + [Filter::JsTree.new]
 
       filtered = filters.reduce(root) {|memo, filter| filter.filter(memo, frames) }
+
+      content_type 'application/json'
       Oj.dump(filtered, mode: :compat)
     end
   end

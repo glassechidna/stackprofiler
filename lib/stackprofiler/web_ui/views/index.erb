@@ -29,11 +29,23 @@
 
     var $tree = $('#jstree_demo');
 
+    var load_func = function(node, cb) {
+      var params = {
+        filters: {
+          stackprofiler_elision: {},
+          remove_gems: {},
+          quick_method_elision: {},
+          compress_tree: {}
+        }
+      };
+      $.post("/__stackprofiler/json?run_id=<%= @run_id %>", JSON.stringify(params), function(data, status, xhr) {
+        cb.call(this, data);
+      });
+    };
+
     $tree.jstree({
       core: {
-        data: {
-          url: '/__stackprofiler/json?run_id=<%= @run_id %>'
-        }
+        data: load_func
       }
     });
 

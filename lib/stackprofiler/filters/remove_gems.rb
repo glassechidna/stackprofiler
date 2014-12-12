@@ -4,6 +4,10 @@ require 'pry-rescue'
 module Stackprofiler
   module Filter
     class RemoveGems
+      def initialize(options={})
+
+      end
+
       def filter root, frames
         # todo: have a think about why straight enumeration isn't good enough
 
