@@ -7,6 +7,7 @@
       <% end %>
     </ul>
   </li>
+  <li><a href="#" data-toggle="modal" data-target="#options-modal">Options</a></li>
 <% end %>
 
 <div id="foo" style="">
@@ -28,16 +29,20 @@
 
     var $tree = $('#jstree_demo');
 
+    var params_func = function()
+    {
+      var params = {filters: {}};
+
+      if ($('form#options input[name="stackprofiler_elision"]').is(':checked')) params.filters.stackprofiler_elision = {};
+      if ($('form#options input[name="remove_gems"]').is(':checked')) params.filters.remove_gems = {};
+      if ($('form#options input[name="quick_method_elision"]').is(':checked')) params.filters.quick_method_elision = {};
+      if ($('form#options input[name="compress_tree"]').is(':checked')) params.filters.compress_tree = {};
+
+      return params;
+    };
+
     var load_func = function(node, cb) {
-      var params = {
-        filters: {
-          stackprofiler_elision: {},
-          remove_gems: {},
-          quick_method_elision: {},
-          compress_tree: {}
-        }
-      };
-      $.post("/__stackprofiler/json?run_id=<%= @run_id %>", JSON.stringify(params), function(data, status, xhr) {
+      $.post("/__stackprofiler/json?run_id=<%= @run_id %>", JSON.stringify(params_func()), function(data, status, xhr) {
         cb.call(this, data);
       });
     };
@@ -49,9 +54,55 @@
     });
 
     $tree.on("changed.jstree", function (e, data) {
+      if (!data.node) return;
+
       var addrs = data.node.data.addrs;
       var url = "/__stackprofiler/code/" + addrs[0] + "?run_id=<%= @run_id %>";
       $("#source-display").load(url);
     });
+
+    $('button#save-options').click(function() {
+      $tree.jstree().refresh();
+    });
   });
 </script>
+
+<div id="options-modal" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Stackprofiler Options</h4>
+      </div>
+      <div class="modal-body">
+        <form id="options" class="form-horizontal">
+          <fieldset>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="remove_gems"> Remove gems
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="quick_method_elision"> Remove quick methods
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="stackprofiler_elision"> Remove top of stack
+              </label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" name="compress_tree"> Compress stack
+              </label>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="save-options">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>
