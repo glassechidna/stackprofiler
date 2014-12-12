@@ -76,25 +76,6 @@ module Stackprofiler
       run_id = params[:run_id].to_i
       run = RunDataSource.runs[run_id]
       frames = run.profile[:frames]
-      stacks = run.stacks
-
-      root_addr = stacks[0][0].to_s
-      root = Tree::TreeNode.new root_addr, {addrs: [root_addr]}
-
-      stacks.each do |stack|
-        prev = root
-        stack.each do |addr|
-          addr = addr.to_s
-          node = prev[addr]
-          if node.nil?
-            hash = {count: 0, addrs: [addr]}
-            node = Tree::TreeNode.new(addr, hash)
-            prev << node
-          end
-          node.content[:count] +=1
-          prev = node
-        end
-      end
 
       filter_map = {
         stackprofiler_elision: Filter::StackprofilerElision,
@@ -103,12 +84,13 @@ module Stackprofiler
         compress_tree: Filter::CompressTree,
       }
 
-      filters = params[:filters].map do |key, opts|
+      optional = params[:filters].map do |key, opts|
         klass = filter_map[key.to_sym]
         klass.new(opts) if klass.present?
-      end.compact + [Filter::JsTree.new]
+      end.compact
 
-      filtered = filters.reduce(root) {|memo, filter| filter.filter(memo, frames) }
+      filters = [Filter::BuildTree.new, *optional, Filter::JsTree.new]
+      filtered = filters.reduce(run) {|memo, filter| filter.filter(memo, frames) }
 
       content_type 'application/json'
       Oj.dump(filtered, mode: :compat)

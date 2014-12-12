@@ -15,6 +15,7 @@ require 'stackprofiler/run_data_source'
 require 'stackprofiler/reverse_depth_first'
 
 require 'stackprofiler/filters/js_tree'
+require 'stackprofiler/filters/build_tree'
 require 'stackprofiler/filters/remove_gems'
 require 'stackprofiler/filters/compress_tree'
 require 'stackprofiler/filters/stackprofiler_elision'
