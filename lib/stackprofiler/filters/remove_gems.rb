@@ -1,6 +1,3 @@
-# require 'rbtrace'
-require 'pry-rescue'
-
 module Stackprofiler
   module Filter
     class RemoveGems
