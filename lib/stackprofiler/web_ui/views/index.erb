@@ -33,6 +33,7 @@
     {
       var params = {filters: {}};
 
+      if ($('form#options input[name="invert"]').is(':checked')) params.filters.build_tree = {invert: true};
       if ($('form#options input[name="stackprofiler_elision"]').is(':checked')) params.filters.stackprofiler_elision = {};
       if ($('form#options input[name="remove_gems"]').is(':checked')) params.filters.remove_gems = {};
       if ($('form#options input[name="quick_method_elision"]').is(':checked')) params.filters.quick_method_elision = {};
@@ -94,6 +95,10 @@
             </div>
             <div class="checkbox">
               <label><input type="checkbox" name="compress_tree"> Compress stack
+              </label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" name="invert"> Invert stack
               </label>
             </div>
           </fieldset>

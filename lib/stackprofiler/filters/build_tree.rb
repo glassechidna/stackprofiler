@@ -2,7 +2,7 @@ module Stackprofiler
   module Filter
     class BuildTree
       def initialize(options={})
-
+        @options = options
       end
 
       def filter run, frames
@@ -13,7 +13,7 @@ module Stackprofiler
 
         stacks.each do |stack|
           prev = root
-          stack.each do |addr|
+          iterate stack do |addr|
             addr = addr.to_s
             node = prev[addr]
             if node.nil?
@@ -26,7 +26,23 @@ module Stackprofiler
           end
         end
 
+        if inverted?
+          root.children.each {|n| n.content[:open] = false }
+        end
+
         root
+      end
+
+      def inverted?
+        @options[:invert]
+      end
+
+      def iterate stack, &blk
+        if inverted?
+          stack.reverse_each &blk
+        else
+          stack.each &blk
+        end
       end
     end
   end
