@@ -10,63 +10,18 @@
   <li><a href="#" data-toggle="modal" data-target="#options-modal">Options</a></li>
 <% end %>
 
-<div id="foo" style="">
+<% content_for :head do %>
+  <script src="/__stackprofiler/js/stackprofiler.js"></script>
+<% end %>
+
+<div id="foo">
   <div id="a">
-    <div id="jstree_demo"></div>
+    <div id="jstree_demo" data-run-id="<%= @run_id %>"></div>
   </div>
   <div id="b">
     <div id="source-display"></div>
   </div>
 </div>
-
-<script>
-  $(function() {
-    $('#foo').split({
-      orientation: 'horizontal',
-      limit: 10,
-      position: '40%'
-    });
-
-    var $tree = $('#jstree_demo');
-
-    var params_func = function()
-    {
-      var params = {filters: {}};
-
-      if ($('form#options input[name="invert"]').is(':checked')) params.filters.build_tree = {invert: true};
-      if ($('form#options input[name="stackprofiler_elision"]').is(':checked')) params.filters.stackprofiler_elision = {};
-      if ($('form#options input[name="remove_gems"]').is(':checked')) params.filters.remove_gems = {};
-      if ($('form#options input[name="quick_method_elision"]').is(':checked')) params.filters.quick_method_elision = {};
-      if ($('form#options input[name="compress_tree"]').is(':checked')) params.filters.compress_tree = {};
-
-      return params;
-    };
-
-    var load_func = function(node, cb) {
-      $.post("/__stackprofiler/json?run_id=<%= @run_id %>", JSON.stringify(params_func()), function(data, status, xhr) {
-        cb.call(this, data);
-      });
-    };
-
-    $tree.jstree({
-      core: {
-        data: load_func
-      }
-    });
-
-    $tree.on("changed.jstree", function (e, data) {
-      if (!data.node) return;
-
-      var addrs = data.node.data.addrs;
-      var url = "/__stackprofiler/code/" + addrs[0] + "?run_id=<%= @run_id %>";
-      $("#source-display").load(url);
-    });
-
-    $('button#save-options').click(function() {
-      $tree.jstree().refresh();
-    });
-  });
-</script>
 
 <div id="options-modal" class="modal">
   <div class="modal-dialog">
