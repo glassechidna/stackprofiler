@@ -4,9 +4,9 @@
   <tr>
     <td>
       <pre>
-        <% max = @output.map {|r| r[:samples] }.compact.max; padding = Math.log10(max).ceil + 1; %>
+        <% max = @output.map {|r| r[:samples].length }.compact.max %>
         <% @output.each_with_index do |line, idx| %>
-<%= sprintf('% *d', padding, line[:samples]) if line[:samples].present? %>
+<%= sprintf('% *s', max, line[:samples]) if line[:samples].present? %>
 <% end %></pre>
     </td>
     <td>

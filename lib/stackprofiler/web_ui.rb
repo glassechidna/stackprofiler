@@ -63,7 +63,7 @@ module Stackprofiler
       @output = CodeRay.scan(@source, :ruby).div(wrap: nil).lines.map.with_index do |code, idx|
         line_index = idx + @first_line
         samples = frame[:lines][line_index] || []
-        {code: code, samples: samples.first}
+        {code: code, samples: samples.join('/') }
       end
 
       erb :code, layout: nil
