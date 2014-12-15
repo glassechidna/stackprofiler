@@ -77,19 +77,27 @@ module Stackprofiler
       run = RunDataSource.runs[run_id]
       frames = run.profile[:frames]
 
-      filter_map = {
-        stackprofiler_elision: Filter::StackprofilerElision,
-        remove_gems: Filter::RemoveGems,
-        quick_method_elision: Filter::QuickMethodElision,
-        compress_tree: Filter::CompressTree,
-      }
+      filter_map = [
+        {name: :build_tree, klass: Filter::BuildTree, mandatory: true},
+        {name: :stackprofiler_elision, klass: Filter::StackprofilerElision, mandatory: false},
+        {name: :remove_gems, klass: Filter::RemoveGems, mandatory: false},
+        {name: :quick_method_elision, klass: Filter::QuickMethodElision, mandatory: false},
+        {name: :compress_tree, klass: Filter::CompressTree, mandatory: false},
+        {name: :js_tree, klass: Filter::JsTree, mandatory: true},
+      ]
 
-      optional = params[:filters].map do |key, opts|
-        klass = filter_map[key.to_sym]
-        klass.new(opts) if klass.present?
+      filters = filter_map.map do |f|
+        name, klass, mandatory = f.values_at :name, :klass, :mandatory
+        opts = params[:filters][name.to_s]
+        opts = HashWithIndifferentAccess.new(opts) if opts
+
+        if mandatory
+          klass.new(opts || {})
+        elsif opts
+          klass.new(opts)
+        end
       end.compact
 
-      filters = [Filter::BuildTree.new, *optional, Filter::JsTree.new]
       filtered = filters.reduce(run) {|memo, filter| filter.filter(memo, frames) }
 
       content_type 'application/json'
