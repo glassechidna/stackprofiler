@@ -1,8 +1,13 @@
 module Stackprofiler
   module Filter
-    class RemoveGems
+    class RemoveFrames
       def initialize(options={})
+        @options = options
+      end
 
+      def regexes
+        ary = @options[:regexes] || []
+        @regexes ||= ary.reject(&:blank?).map {|r| /#{r}/ }.compact
       end
 
       def filter root, frames
@@ -11,7 +16,7 @@ module Stackprofiler
         root.reverse_depth_first do |node|
           frame = frames[node.name.to_i]
 
-          if frame[:file] =~ /gems/
+          if regexes.any? {|r| frame[:name] =~ r }
             parent = node.parent
             node.remove_from_parent!
 
