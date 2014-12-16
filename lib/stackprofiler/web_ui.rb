@@ -82,7 +82,7 @@ module Stackprofiler
         {name: :rebase_stack, klass: Filter::RebaseStack, mandatory: false},
         {name: :filtered_frames, klass: Filter::FrameRegexRemoval, mandatory: false},
         {name: :remove_gems, klass: Filter::GemRemoval, mandatory: false},
-        {name: :quick_method_elision, klass: Filter::QuickMethodElision, mandatory: false},
+        {name: :quick_method_removal, klass: Filter::QuickMethodRemoval, mandatory: false},
         {name: :compress_tree, klass: Filter::CompressTree, mandatory: false},
         {name: :js_tree, klass: Filter::JsTree, mandatory: true},
       ]

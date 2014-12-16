@@ -20,7 +20,7 @@ require 'stackprofiler/filters/gem_removal'
 require 'stackprofiler/filters/rebase_stack'
 require 'stackprofiler/filters/compress_tree'
 require 'stackprofiler/filters/frame_regex_removal'
-require 'stackprofiler/filters/quick_method_elision'
+require 'stackprofiler/filters/quick_method_removal'
 
 module Stackprofiler
   # Your code goes here...

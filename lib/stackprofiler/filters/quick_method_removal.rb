@@ -1,15 +1,16 @@
 module Stackprofiler
   module Filter
-    class QuickMethodElision
+    class QuickMethodRemoval
       include RemoveFramesHelper
+      attr_accessor :limit
 
       def initialize(options={})
-
+        self.limit = options[:limit].try(:to_i) || 0
       end
 
       def filter root, frames
         remove_frames root, frames do |node, frame|
-          frame[:total_samples] < 10
+          frame[:total_samples] < limit
         end
       end
     end
