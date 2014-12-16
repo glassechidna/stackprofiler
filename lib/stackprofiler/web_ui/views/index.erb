@@ -33,28 +33,48 @@
       <div class="modal-body">
         <form id="options" class="form-horizontal">
           <fieldset>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" name="remove_gems"> Remove gems
-              </label>
+            <div class="form-group">
+              <label for="quick_method_elision" class="col-lg-4 control-label">Remove quick methods</label>
+              <div class="col-lg-8">
+                <div class="checkbox">
+                  <label></label>
+                  <input type="checkbox" id="quick_method_elision" name="quick_method_elision">
+                </div>
+              </div>
             </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" name="quick_method_elision"> Remove quick methods
-              </label>
+            <div class="form-group">
+              <label for="stackprofiler_elision" class="col-lg-4 control-label">Remove top of stack</label>
+              <div class="col-lg-8">
+                <div class="checkbox">
+                  <label></label>
+                  <input type="checkbox" id="stackprofiler_elision" name="stackprofiler_elision">
+                </div>
+              </div>
             </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" name="stackprofiler_elision"> Remove top of stack
-              </label>
+            <div class="form-group">
+              <label for="compress_tree" class="col-lg-4 control-label">Compress stack</label>
+              <div class="col-lg-8">
+                <div class="checkbox">
+                  <label></label>
+                  <input type="checkbox" id="compress_tree" name="compress_tree">
+                </div>
+              </div>
             </div>
-            <div class="checkbox">
-              <label><input type="checkbox" name="compress_tree"> Compress stack
-              </label>
+            <div class="form-group">
+              <label for="invert" class="col-lg-4 control-label">Invert stack</label>
+              <div class="col-lg-8">
+                <div class="checkbox">
+                  <label></label>
+                  <input type="checkbox" id="invert" name="invert">
+                </div>
+              </div>
             </div>
-            <div class="checkbox">
-              <label><input type="checkbox" name="invert"> Invert stack
-              </label>
+            <div class="form-group">
+              <label for="filtered_frames" class="col-lg-4 control-label">Filter frames</label>
+              <div class="col-lg-8">
+                <input type="text" class="form-control" id="filtered_frames" name="filtered_frames" />
+                <span class="help-block">Enter regular expressions (e.g. <strong>^Unicorn::.+</strong>) for frames that should be filtered out.</span>
+              </div>
             </div>
           </fieldset>
         </form>
