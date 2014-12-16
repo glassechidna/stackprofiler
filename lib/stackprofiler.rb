@@ -12,13 +12,13 @@ require 'stackprofiler/web_ui'
 require 'stackprofiler/middleware'
 require 'stackprofiler/data_collector'
 require 'stackprofiler/run_data_source'
-require 'stackprofiler/reverse_depth_first'
+require 'stackprofiler/utils'
 
 require 'stackprofiler/filters/js_tree'
 require 'stackprofiler/filters/build_tree'
-require 'stackprofiler/filters/remove_frames'
-require 'stackprofiler/filters/compress_tree'
 require 'stackprofiler/filters/rebase_stack'
+require 'stackprofiler/filters/compress_tree'
+require 'stackprofiler/filters/frame_regex_removal'
 require 'stackprofiler/filters/quick_method_elision'
 
 module Stackprofiler
