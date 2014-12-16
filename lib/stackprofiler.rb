@@ -16,6 +16,7 @@ require 'stackprofiler/utils'
 
 require 'stackprofiler/filters/js_tree'
 require 'stackprofiler/filters/build_tree'
+require 'stackprofiler/filters/gem_removal'
 require 'stackprofiler/filters/rebase_stack'
 require 'stackprofiler/filters/compress_tree'
 require 'stackprofiler/filters/frame_regex_removal'
