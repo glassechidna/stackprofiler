@@ -43,12 +43,10 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="stackprofiler_elision" class="col-lg-4 control-label">Remove top of stack</label>
+              <label for="rebase_stack" class="col-lg-4 control-label">Rebase stack</label>
               <div class="col-lg-8">
-                <div class="checkbox">
-                  <label></label>
-                  <input type="checkbox" id="stackprofiler_elision" name="stackprofiler_elision">
-                </div>
+                <input type="text" class="form-control" id="rebase_stack" name="rebase_stack" placeholder="<%= Stackprofiler::Filter::RebaseStack.default %>">
+                <span class="help-block">Enter name of frame above which frames will be hidden.</span>
               </div>
             </div>
             <div class="form-group">

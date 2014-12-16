@@ -18,7 +18,7 @@ require 'stackprofiler/filters/js_tree'
 require 'stackprofiler/filters/build_tree'
 require 'stackprofiler/filters/remove_frames'
 require 'stackprofiler/filters/compress_tree'
-require 'stackprofiler/filters/stackprofiler_elision'
+require 'stackprofiler/filters/rebase_stack'
 require 'stackprofiler/filters/quick_method_elision'
 
 module Stackprofiler

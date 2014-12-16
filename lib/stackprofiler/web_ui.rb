@@ -79,7 +79,7 @@ module Stackprofiler
 
       filter_map = [
         {name: :build_tree, klass: Filter::BuildTree, mandatory: true},
-        {name: :stackprofiler_elision, klass: Filter::StackprofilerElision, mandatory: false},
+        {name: :rebase_stack, klass: Filter::RebaseStack, mandatory: false},
         {name: :filtered_frames, klass: Filter::RemoveFrames, mandatory: false},
         {name: :quick_method_elision, klass: Filter::QuickMethodElision, mandatory: false},
         {name: :compress_tree, klass: Filter::CompressTree, mandatory: false},
