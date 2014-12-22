@@ -6,7 +6,7 @@ module Stackprofiler
         run WebUI
       end
 
-      @app = Rack::URLMap.new({'/__stackprofiler' => mid, '/' => DataCollector.new(app)})
+      @app = Rack::URLMap.new({'/__stackprofiler' => mid, '/' => DataCollector.new(app, options)})
       @options = options
     end
 
