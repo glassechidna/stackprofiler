@@ -57,7 +57,7 @@ visible results, e.g. XHR.
 Once you have profiled a request or two, you can head over to Stackprofiler's
 GUI. This is located on the same port as your website, albeit at the
 path `/__stackprofiler`. If your server is running on port 5000 in development,
-the link might be [`http://localhost:5000/__stackprofiler`]([http://localhost:5000/__stackprofiler]).
+the link might be [`http://localhost:5000/__stackprofiler`](http://localhost:5000/__stackprofiler).
 
 You should now see a page that looks like the screenshot above. Click on any
 line in the stack trace to see the code for that method annotated with the
