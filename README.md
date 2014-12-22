@@ -65,6 +65,22 @@ performance characteristics for each line. I would document those here but
 they are going to change in the next few dev hours, so I'll come back to that
 later.
 
+## Data collection configuration
+
+Stackprofiler's operation can be configured by passing in parameters to the
+middleware specified above. While the defaults should suit most applications,
+changing them is easy enough:
+
+```ruby
+config.middleware.use Stackprofiler::Middleware {
+  predicate: /profile=true/, # regex form for urls to be profiled
+  predicate: proc {|env| true }, # callable form for greater flexibility than regex
+  stackprof: { # options to be passed directly through to stackprof, e.g.:
+    interval: 1000 # sample every n micro-seconds
+  }
+}
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/glassechidna/stackprofiler/fork )
