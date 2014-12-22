@@ -6,11 +6,13 @@
   <link rel="stylesheet" href="/__stackprofiler/vendor/css/coderay.css" />
   <link rel="stylesheet" href="/__stackprofiler/vendor/octicons/octicons.css" />
   <link rel="stylesheet" href="/__stackprofiler/vendor/tokenfield/bootstrap-tokenfield.min.css" />
+  <link rel="stylesheet" href="/__stackprofiler/vendor/jquery-ui/jquery-ui.min.css" />
   <script src="/__stackprofiler/vendor/js/jquery.min.js"></script>
   <script src="/__stackprofiler/vendor/js/bootstrap.min.js"></script>
   <script src="/__stackprofiler/vendor/jstree/jstree.js"></script>
   <script src="/__stackprofiler/vendor/js/splitter.js"></script>
   <script src="/__stackprofiler/vendor/tokenfield/bootstrap-tokenfield.min.js"></script>
+  <script src="/__stackprofiler/vendor/jquery-ui/jquery-ui.min.js"></script>
   <%= yield_content :head %>
   <style>
     body, html {
@@ -50,6 +52,10 @@
     }
     .jstree-leaf a{
       height: auto !important;
+    }
+
+    .ui-autocomplete {
+      z-index: 5000;
     }
   </style>
 </head>
