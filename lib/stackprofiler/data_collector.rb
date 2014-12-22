@@ -14,12 +14,14 @@ module Stackprofiler
           req.fullpath =~ regex
         end
       end
+
+      @stackprof_opts = {mode: :wall, interval: 1000, raw: true}.merge(options[:stackprof] || {})
     end
 
     def call(env)
       if @predicate.call(env)
         out = nil
-        profile = StackProf.run(mode: :wall, interval: 1000, raw: true) { out = @app.call env }
+        profile = StackProf.run(@stackprof_opts) { out = @app.call env }
 
         req = Rack::Request.new env
         run = Run.new req.fullpath, profile, Time.now
