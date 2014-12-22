@@ -69,6 +69,20 @@ module Stackprofiler
       erb :code, layout: nil
     end
 
+    get '/frame_names' do
+      name = params[:term]
+      run_id = params[:run_id].to_i
+
+      run = RunDataSource.runs[run_id]
+      frames = run.profile[:frames]
+
+      matching = frames.select {|addr, f| f[:name].include? name }
+      results = matching.map {|addr, f| f[:name] }
+
+      content_type 'application/json'
+      Oj.dump(results, mode: :compat)
+    end
+
     post '/json' do
       json_params = Oj.strict_load(request.body.read, nil)
       params.merge!(json_params)
