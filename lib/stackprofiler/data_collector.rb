@@ -5,7 +5,6 @@ module Stackprofiler
     end
 
     def call(env)
-      puts env['PATH_INFO']
       if env['QUERY_STRING'] =~ /profile=true/
         out = nil
         profile = StackProf.run(mode: :wall, interval: 1000, raw: true) { out = @app.call env }
