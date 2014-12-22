@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'stackprof'
   spec.add_dependency 'activesupport'
-  spec.add_dependency 'rubytree', '= 0.9.5pre'
+  spec.add_dependency 'rubytree', '>= 0.9.5pre4'
   spec.add_dependency 'sinatra'
   spec.add_dependency 'sinatra-contrib'
   spec.add_dependency 'coderay'
