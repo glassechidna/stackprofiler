@@ -56,10 +56,7 @@ module Stackprofiler
       @file, @first_line = frame.values_at :file, :line
       @first_line ||= 1
 
-      last_line = frame[:lines].keys.max || @first_line + 5
-      line_range = @first_line..last_line
-
-      @source = File.readlines(@file).select.with_index {|line, idx| line_range.include? (idx + 1) }.join
+      @source = MethodSource::source_helper([@file, @first_line])
       @output = CodeRay.scan(@source, :ruby).div(wrap: nil).lines.map.with_index do |code, idx|
         line_index = idx + @first_line
         samples = frame[:lines][line_index] || []

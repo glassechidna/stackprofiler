@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry-stack_explorer'
 
   spec.add_dependency 'stackprof'
+  spec.add_dependency 'method_source'
   spec.add_dependency 'activesupport'
   spec.add_dependency 'rubytree', '>= 0.9.5pre4'
   spec.add_dependency 'sinatra'
