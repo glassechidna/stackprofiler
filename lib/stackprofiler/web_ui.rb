@@ -56,7 +56,7 @@ module Stackprofiler
       @file, @first_line = frame.values_at :file, :line
       @first_line ||= 1
 
-      @source = MethodSource::source_helper([@file, @first_line])
+      @source = MethodSource::source_helper([@file, @first_line]).strip_heredoc
       @output = CodeRay.scan(@source, :ruby).div(wrap: nil).lines.map.with_index do |code, idx|
         line_index = idx + @first_line
         samples = frame[:lines][line_index] || []
