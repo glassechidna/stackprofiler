@@ -4,16 +4,13 @@
   <tr>
     <td>
       <pre>
-        <% max = @output.map {|r| r[:samples].length }.compact.max %>
-        <% @output.each_with_index do |line, idx| %>
-<%= sprintf('% *s', max, line[:samples]) if line[:samples].present? %>
-<% end %></pre>
+<% @output.each do |line| %><%= line[:samples] %>
+<% end %>
+      </pre>
     </td>
     <td>
       <pre>
-        <% @output.each do |line| %>
-<%= line[:code] -%>
-        <% end %>
+<% @output.each do |line| %><%= line[:code] %><% end %>
       </pre>
     </td>
   </tr>

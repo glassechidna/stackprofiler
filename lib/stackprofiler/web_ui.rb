@@ -63,7 +63,7 @@ module Stackprofiler
         {code: code, samples: samples.join('/') }
       end
 
-      erb :code, layout: nil
+      erb :code, layout: nil, trim: '-'
     end
 
     get '/frame_names' do
