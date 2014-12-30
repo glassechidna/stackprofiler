@@ -36,7 +36,7 @@ Or install it yourself as:
 
     $ gem install stackprofiler
 
-## Usage
+## Middleware
 
 Using Stackprofiler at this stage is pretty simple on account of there
 not yet being much flexibility in the way of configuration. This will be
@@ -65,7 +65,7 @@ performance characteristics for each line. I would document those here but
 they are going to change in the next few dev hours, so I'll come back to that
 later.
 
-## Data collection configuration
+### Data collection configuration
 
 Stackprofiler's operation can be configured by passing in parameters to the
 middleware specified above. While the defaults should suit most applications,
@@ -81,6 +81,28 @@ config.middleware.use Stackprofiler::Middleware {
 }
 ```
 
+## Ad hoc
+
+Sometimes you want to test some code that isn't part of a Rack app - or is
+just cumbersome to run outside of an IRB console. You can test this code
+directly using code very similar to the `stackprof` interface. It works like
+this:
+
+Run `$ stackprofiler` from the command line. This will start a Stackprofiler
+server that will listen for incoming profile runs and display them on
+[`http://localhost:9292/__stackprofiler`](http://localhost:9292/__stackprofiler).
+Next, in an IRB console (or, even better, [Pry][3]!)
+
+```ruby
+require 'stackprofiler'
+
+Stackprofiler.profile do
+  SomeSlowTaskThatNeedsInvestigation.run
+end
+```
+
+Now visit the above URL and a visual breakdown of the code flow will be visible.
+
 ## Contributing
 
 1. Fork it ( https://github.com/glassechidna/stackprofiler/fork )
@@ -95,3 +117,4 @@ So much. First todo: write a todo list.
 
 [1]: https://github.com/tmm1/stackprof
 [2]: https://github.com/ruby-prof/ruby-prof
+[3]: https://github.com/pry/pry
