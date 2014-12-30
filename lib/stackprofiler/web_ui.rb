@@ -80,6 +80,20 @@ module Stackprofiler
       Oj.dump(results, mode: :compat)
     end
 
+    post '/receive' do
+      data = request.body.read
+      json = Oj.load(data)
+      run = Run.new 'unknown', json, Time.now
+      RunDataSource.runs << run
+
+      # if they sent us a profile, they probably changed something and want that reflected
+      # todo: remove hack
+      MethodSource::instance_variable_get(:@lines_for_file).try(:clear)
+
+      content_type 'application/json'
+      {run_id: RunDataSource.runs.count - 1 }.to_json
+    end
+
     post '/json' do
       json_params = Oj.strict_load(request.body.read, nil)
       params.merge!(json_params)

@@ -7,6 +7,7 @@ require 'method_source'
 require 'sinatra/base'
 require 'active_support/all'
 require 'sinatra/content_for'
+require 'net/http'
 
 require 'stackprofiler/version'
 require 'stackprofiler/web_ui'
