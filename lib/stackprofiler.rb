@@ -3,6 +3,7 @@ require 'tree'
 require 'coderay'
 require 'objspace'
 require 'stackprof'
+require 'method_source'
 require 'sinatra/base'
 require 'active_support/all'
 require 'sinatra/content_for'
@@ -23,5 +24,4 @@ require 'stackprofiler/filters/frame_regex_removal'
 require 'stackprofiler/filters/quick_method_removal'
 
 module Stackprofiler
-  # Your code goes here...
 end
