@@ -19,6 +19,7 @@ for a job application! Please keep that in mind when you find all the
 rough edges :)
 
 ![Screenshot](http://i.imgur.com/8UJV9Oo.png)
+![Screenshot](http://i.imgur.com/57Oe4Bl.png)
 
 ## Installation
 
