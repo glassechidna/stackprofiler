@@ -94,6 +94,26 @@ module Stackprofiler
       {run_id: RunDataSource.runs.count - 1 }.to_json
     end
 
+    get '/gem_breakdown' do
+      run_id = params[:run_id].to_i
+      run = RunDataSource.runs[run_id]
+      breakdown = run.gem_breakdown
+
+      other_threshold = (params[:threshold].presence || 0.1).to_f
+      sum = breakdown.values.sum
+
+      json = breakdown.reduce(Hash.new(0)) do |hash, (gem, count)|
+        key = count.to_f/sum > other_threshold ? gem : '(other)'
+        hash[key] += count
+        hash
+      end.map do |gem, count|
+        {label: gem, value: count}
+      end
+
+      content_type 'application/json'
+      json.to_json
+    end
+
     post '/json' do
       json_params = Oj.strict_load(request.body.read, nil)
       params.merge!(json_params)

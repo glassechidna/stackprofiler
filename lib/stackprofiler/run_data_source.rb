@@ -29,6 +29,24 @@ module Stackprofiler
     def duration
       profile[:samples] * profile[:interval] / 1e6
     end
+
+    def gem_breakdown
+      bottom_frames = stacks.map &:last
+      paths = bottom_frames.map {|addr| profile[:frames][addr][:file] }
+
+      gems = paths.map do |p|
+        case p
+          when %r{gems/(\D\w+)}
+            $1
+          when %r{#{RbConfig::CONFIG['rubylibdir']}}
+            'stdlib'
+          else
+            '(app)'
+        end
+      end
+
+      gems.group_by {|g| g }.map {|k, v| [k, v.count] }.sort_by(&:last).to_h
+    end
   end
 
   class RunDataSource
