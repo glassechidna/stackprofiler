@@ -17,7 +17,13 @@ module Stackprofiler
         end
         text = escaped.join("<br> ↳ ")
 
-        children = root.children.map { |n| filter(n, frames) }
+        sorted_children = root.children.sort_by do |child|
+          addr = child.content[:addrs].first.to_i
+          frame = frames[addr]
+          frame[:samples]
+        end.reverse
+
+        children = sorted_children.map { |n| filter(n, frames) }
         open = root.content.has_key?(:open) ? root.content[:open] : frame[:total_samples] > 100
         {text: text, state: {opened: open}, children: children, icon: false, data: {addrs: addrs}}
       end
