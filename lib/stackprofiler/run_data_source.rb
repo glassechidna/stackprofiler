@@ -45,7 +45,7 @@ module Stackprofiler
         end
       end
 
-      gems.group_by {|g| g }.map {|k, v| [k, v.count] }.sort_by(&:last).to_h
+      gems.group_by {|g| g }.map {|k, v| [k, v.count] }.sort_by(&:last).reverse.to_h
     end
   end
 

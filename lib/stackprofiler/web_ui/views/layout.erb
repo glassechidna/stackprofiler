@@ -16,6 +16,7 @@
   <script src="/__stackprofiler/vendor/jquery-ui/jquery-ui.min.js"></script>
   <script src="/__stackprofiler/vendor/d3/d3.min.js"></script>
   <script src="/__stackprofiler/vendor/epoch/epoch.min.js"></script>
+  <script src="/__stackprofiler/vendor/lodash/lodash.min.js"></script>
   <%= yield_content :head %>
   <style>
     body, html {
@@ -59,6 +60,17 @@
 
     .ui-autocomplete {
       z-index: 5000;
+    }
+
+    .color-box {
+      width: 10px;
+      height: 10px;
+      display: inline-block;
+      background-color: #ccc;
+      margin-right: 10px;
+      /*position: absolute;*/
+      /*left: 5px;*/
+      /*top: 5px;*/
     }
   </style>
 </head>
