@@ -98,8 +98,11 @@ module Stackprofiler
       run_id = params[:run_id].to_i
       run = RunDataSource.runs[run_id]
 
+      breakdown = run.gem_breakdown
+      breakdown['(gc)'] = run.profile[:gc_samples]
+
       content_type 'application/json'
-      run.gem_breakdown.to_json
+      breakdown.to_json
     end
 
     post '/json' do
