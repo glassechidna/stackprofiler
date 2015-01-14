@@ -1,12 +1,7 @@
 module Stackprofiler
   class Middleware
     def initialize(app, options = {})
-      mid = Rack::Builder.new do
-        use Rack::Deflater
-        run WebUI
-      end
-
-      @app = Rack::URLMap.new({'/__stackprofiler' => mid, '/' => DataCollector.new(app, options)})
+      @app = Rack::URLMap.new({'/__stackprofiler' => WebUI, '/' => DataCollector.new(app, options)})
       @options = options
     end
 

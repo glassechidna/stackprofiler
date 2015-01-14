@@ -1,5 +1,7 @@
 module Stackprofiler
   class WebUI < Sinatra::Base
+    use Rack::Deflater
+
     helpers Sinatra::ContentFor
     set :views, proc { File.join(root, 'web_ui', 'views') }
     set :public_folder, proc { File.join(root, 'web_ui', 'public') }
