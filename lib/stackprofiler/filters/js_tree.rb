@@ -19,8 +19,8 @@ module Stackprofiler
 
         sorted_children = root.children.sort_by do |child|
           addr = child.content[:addrs].first.to_i
-          frame = frames[addr]
-          frame[:samples]
+          cframe = frames[addr]
+          cframe[:samples]
         end.reverse
 
         children = sorted_children.map { |n| filter(n, frames) }
