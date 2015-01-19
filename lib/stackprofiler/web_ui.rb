@@ -84,7 +84,7 @@ module Stackprofiler
 
     post '/receive' do
       data = request.body.read
-      json = Oj.load(data)
+      json = Marshal.load(data)
       run = Run.new 'unknown', json, Time.now
       RunDataSource.runs << run
 
