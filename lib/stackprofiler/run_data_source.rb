@@ -36,10 +36,10 @@ module Stackprofiler
 
     def gem_breakdown
       bottom_frames = stacks.map &:last
-      paths = bottom_frames.map {|addr| profile[:frames][addr][:file] }
+      frames = bottom_frames.map {|addr| profile[:frames][addr] }
 
-      gems = paths.map do |p|
-        case p
+      gems = frames.map do |frame|
+        case frame[:file]
           when %r{gems/(\D\w+)}
             $1
           when %r{#{RbConfig::CONFIG['rubylibdir']}}
