@@ -14,6 +14,7 @@ require 'stackprofiler/web_ui'
 require 'stackprofiler/middleware'
 require 'stackprofiler/data_collector'
 require 'stackprofiler/run_data_source'
+require 'stackprofiler/run_code_cache'
 require 'stackprofiler/utils'
 
 require 'stackprofiler/filters/js_tree'

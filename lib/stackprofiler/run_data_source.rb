@@ -10,6 +10,10 @@ module Stackprofiler
       @timestamp = timestamp
     end
 
+    def code_cache
+      @code_cache ||= RunCodeCache.new @profile
+    end
+
     def stacks
       @stacks ||= begin
         off = 0
