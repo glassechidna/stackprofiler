@@ -6,8 +6,8 @@ module Stackprofiler
       def initialize(options={})
       end
 
-      def filter root, frames
-        remove_frames root, frames do |node, frame|
+      def filter root, run
+        remove_frames root, run do |node, frame|
           Gem.path.any? {|p| frame[:file].include?(p) }
         end
       end

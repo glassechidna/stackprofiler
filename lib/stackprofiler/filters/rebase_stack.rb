@@ -7,10 +7,10 @@ module Stackprofiler
         self.top_names = options[:name].presence || RebaseStack.default
       end
 
-      def filter root, frames
+      def filter root, run
         root.find do |node|
           addr = node.content[:addrs].first.to_i
-          top_names.include? frames[addr][:name]
+          top_names.include? run.profile[:frames][addr][:name]
           # frames[addr][:name] == top_names
         end || root
       end

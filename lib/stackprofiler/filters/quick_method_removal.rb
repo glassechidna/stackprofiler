@@ -8,8 +8,8 @@ module Stackprofiler
         self.limit = options[:limit].try(:to_i) || 0
       end
 
-      def filter root, frames
-        remove_frames root, frames do |node, frame|
+      def filter root, run
+        remove_frames root, run do |node, frame|
           frame[:total_samples] < limit
         end
       end

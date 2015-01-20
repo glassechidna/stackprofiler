@@ -5,7 +5,7 @@ module Stackprofiler
 
       end
 
-      def filter root, frames
+      def filter root, run
         root.reverse_depth_first do |node|
           if node.out_degree == 1
             hash = node.content

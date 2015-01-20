@@ -137,7 +137,7 @@ module Stackprofiler
         end
       end.compact
 
-      filtered = filters.reduce(run) {|memo, filter| filter.filter(memo, frames) }
+      filtered = filters.reduce(run) {|memo, filter| filter.filter(memo, run) }
 
       content_type 'application/json'
       Oj.dump(filtered, mode: :compat)

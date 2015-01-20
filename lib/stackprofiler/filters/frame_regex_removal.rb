@@ -12,8 +12,8 @@ module Stackprofiler
         @regexes ||= ary.reject(&:blank?).map {|r| /#{r}/ }.compact
       end
 
-      def filter root, frames
-        remove_frames root, frames do |node, frame|
+      def filter root, run
+        remove_frames root, run do |node, frame|
           regexes.any? {|r| frame[:name] =~ r }
         end
       end

@@ -5,7 +5,7 @@ module Stackprofiler
         @options = options
       end
 
-      def filter run, frames
+      def filter run, run2
         stacks = run.stacks
 
         root_addr = stacks[0][0].to_s

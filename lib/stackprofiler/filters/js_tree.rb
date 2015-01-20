@@ -5,9 +5,10 @@ module Stackprofiler
 
       end
 
-      def filter root, frames
+      def filter root, run
         addrs = root.content[:addrs]
         name = addrs.first.to_i
+        frames = run.profile[:frames]
         frame = frames[name]
 
         escaped = addrs.map do |addr|
@@ -23,7 +24,7 @@ module Stackprofiler
           cframe[:samples]
         end.reverse
 
-        children = sorted_children.map { |n| filter(n, frames) }
+        children = sorted_children.map { |n| filter(n, run) }
         open = root.content.has_key?(:open) ? root.content[:open] : frame[:total_samples] > 100
         {text: text, state: {opened: open}, children: children, icon: false, data: {addrs: addrs}}
       end
