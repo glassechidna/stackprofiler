@@ -10,8 +10,8 @@ module Stackprofiler
       def filter root, run
         root.find do |node|
           addr = node.content[:addrs].first.to_i
-          top_names.include? run.profile[:frames][addr][:name]
-          # frames[addr][:name] == top_names
+          frame = run.profile[:frames][addr]
+          top_names.include?(frame[:name]) || run.profile[:suggested_rebase] == addr
         end || root
       end
 
