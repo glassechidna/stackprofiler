@@ -82,27 +82,27 @@ config.middleware.use Stackprofiler::Middleware {
 }
 ```
 
-## Ad hoc
+## Pry Plugin
 
 Sometimes you want to test some code that isn't part of a Rack app - or is
 just cumbersome to run outside of an IRB console. You can test this code
-directly using code very similar to the `stackprof` interface. It works like
-this:
+directly very easily using the [`pry-stackprofiler`][3] gem in the [Pry][4]
+REPL.
 
-Run `$ stackprofiler` from the command line. This will start a Stackprofiler
-server that will listen for incoming profile runs and display them on
-[`http://localhost:9292/__stackprofiler`](http://localhost:9292/__stackprofiler).
-Next, in an IRB console (or, even better, [Pry][3]!)
+Pry is an alternative to IRB with handy support for plugins. `pry-stackprofiler`
+is such a plugin and works well with the Stackprofiler server. Once installed,
+you can type code into the REPL like:
 
 ```ruby
-require 'stackprofiler'
-
-Stackprofiler.profile do
-  SomeSlowTaskThatNeedsInvestigation.run
+Pry.profile do
+  sleep 0.3
+  sleep 0.4
+  sleep 0.1
 end
 ```
 
-Now visit the above URL and a visual breakdown of the code flow will be visible.
+And the profile results will appear in the Stackprofiler web UI. For running
+instructions, refer to the gem's README.
 
 ## Contributing
 
@@ -118,4 +118,5 @@ So much. First todo: write a todo list.
 
 [1]: https://github.com/tmm1/stackprof
 [2]: https://github.com/ruby-prof/ruby-prof
-[3]: https://github.com/pry/pry
+[3]: https://github.com/glassechidna/pry-stackprofiler
+[4]: https://github.com/pry/pry

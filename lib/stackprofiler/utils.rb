@@ -15,18 +15,6 @@ module Tree
 end
 
 module Stackprofiler
-  def profile
-    # todo: pass through options perhaps?
-    profile = StackProf.run(mode: :wall, raw: true) { yield }
-    # todo: remove terrible hard-coded url
-    url = URI::parse 'http://localhost:9292/__stackprofiler/receive'
-    headers = {'Content-Type' => 'application/json'}
-    req = Net::HTTP::Post.new(url.to_s, headers)
-    req.body = Oj.dump profile
-    response = Net::HTTP.new(url.host, url.port).start {|http| http.request(req) }
-  end
-  module_function :profile
-
   module Filter
     module RemoveFramesHelper
       def remove_frames root, run
