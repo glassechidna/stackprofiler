@@ -39,54 +39,22 @@ Or install it yourself as:
 
 ## Middleware
 
-Using Stackprofiler at this stage is pretty simple on account of there
-not yet being much flexibility in the way of configuration. This will be
-fixed later - hopefully the simplicity can remain.
+Stackprofiler can be used to measure the performance of Ruby-powered websites
+by using a drop-in Rack middleware. This middleware is provided by a separate
+gem; [`stackprofiler-middleware`][3].
 
-Once installed, add Stackprofiler's middleware somewhere in your Rack
-chain, e.g.:
+The reason for a separate gem is so that Stackprofiler can be used in as many
+circumstances as possible. Your app may have dependencies that conflict with
+those powering the Stackprofiler web UI and it would be a shame to miss out
+on using this tool on account of that.
 
-    config.middleware.use Stackprofiler::Middleware
-
-Now start your server like normal. If you wish to profile a request,
-append `profile=true` to the query string. This will inform Stackprofiler
-that it should do its thing. Take note that the response will remain
-unchanged - Stackprofiler will record its statistics for your later perusal
-elsewhere. This is to make it easier to profile requests that don't return
-visible results, e.g. XHR.
-
-Once you have profiled a request or two, you can head over to Stackprofiler's
-GUI. This is located on the same port as your website, albeit at the
-path `/__stackprofiler`. If your server is running on port 5000 in development,
-the link might be [`http://localhost:5000/__stackprofiler`](http://localhost:5000/__stackprofiler).
-
-You should now see a page that looks like the screenshot above. Click on any
-line in the stack trace to see the code for that method annotated with the
-performance characteristics for each line. I would document those here but
-they are going to change in the next few dev hours, so I'll come back to that
-later.
-
-### Data collection configuration
-
-Stackprofiler's operation can be configured by passing in parameters to the
-middleware specified above. While the defaults should suit most applications,
-changing them is easy enough:
-
-```ruby
-config.middleware.use Stackprofiler::Middleware {
-  predicate: /profile=true/, # regex form for urls to be profiled
-  predicate: proc {|env| true }, # callable form for greater flexibility than regex
-  stackprof: { # options to be passed directly through to stackprof, e.g.:
-    interval: 1000 # sample every n micro-seconds
-  }
-}
-```
+Head on over to the README for that gem to learn how to use it.
 
 ## Pry Plugin
 
 Sometimes you want to test some code that isn't part of a Rack app - or is
 just cumbersome to run outside of an IRB console. You can test this code
-directly very easily using the [`pry-stackprofiler`][3] gem in the [Pry][4]
+directly very easily using the [`pry-stackprofiler`][4] gem in the [Pry][5]
 REPL.
 
 Pry is an alternative to IRB with handy support for plugins. `pry-stackprofiler`
@@ -118,5 +86,6 @@ So much. First todo: write a todo list.
 
 [1]: https://github.com/tmm1/stackprof
 [2]: https://github.com/ruby-prof/ruby-prof
-[3]: https://github.com/glassechidna/pry-stackprofiler
-[4]: https://github.com/pry/pry
+[3]: https://github.com/glassechidna/stackprofiler-middleware
+[4]: https://github.com/glassechidna/pry-stackprofiler
+[5]: https://github.com/pry/pry

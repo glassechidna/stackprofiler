@@ -3,16 +3,17 @@
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profiles <b class="caret"></b></a>
     <ul class="dropdown-menu">
       <% @runs.each_with_index do |run, run_id| %>
-        <li><a href="/__stackprofiler/?run_id=<%= run_id %>"><%= run.url %></a>&nbsp;(<b><%= run.duration %>s</b>)</li>
+        <li><a href="/?run_id=<%= run_id %>"><%= run.url %></a>&nbsp;(<b><%= run.duration %>s</b>)</li>
       <% end %>
     </ul>
   </li>
   <li><a href="#" data-toggle="modal" data-target="#options-modal">Options</a></li>
   <li><a href="#" data-toggle="modal" data-target="#gem-breakdown-modal">Gem breakdown</a></li>
+  <li><a href="save?run_id=<%= @run_id %>">Save</a></li>
 <% end %>
 
 <% content_for :head do %>
-  <script src="/__stackprofiler/js/stackprofiler.js"></script>
+  <script src="/js/stackprofiler.js"></script>
 <% end %>
 
 <div id="foo">
