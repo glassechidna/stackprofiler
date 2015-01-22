@@ -15,7 +15,8 @@ module Stackprofiler
           prev = root
           iterate stack[1..-1] do |addr|
             addr = addr.to_s
-            node = prev[addr]
+            above = (prev.parentage || []) + [prev]
+            node = above.find {|n| n.name == addr } || prev[addr]
             if node.nil?
               hash = {count: 0, addrs: [addr]}
               node = Tree::TreeNode.new(addr, hash)
