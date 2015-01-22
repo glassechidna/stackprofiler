@@ -13,7 +13,7 @@ module Stackprofiler
 
         stacks.each do |stack|
           prev = root
-          iterate stack do |addr|
+          iterate stack[1..-1] do |addr|
             addr = addr.to_s
             node = prev[addr]
             if node.nil?
