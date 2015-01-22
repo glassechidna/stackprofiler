@@ -14,7 +14,7 @@ module Stackprofiler
       @code_cache ||= RunCodeCache.new @profile
     end
 
-    def stacks
+    def stacks use_weights=false
       @stacks ||= begin
         off = 0
         stacks = []
@@ -22,9 +22,11 @@ module Stackprofiler
         while off < raw.length
           len = raw[off]
           these_frames = raw[off + 1..off + len]
+          weight = raw[off + len + 1]
           off += len + 2
 
-          stacks.push these_frames
+          times = use_weights ? weight : 1
+          times.times { stacks.push these_frames }
         end
         stacks
       end
