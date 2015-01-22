@@ -19,7 +19,7 @@ module Stackprofiler
     module RemoveFramesHelper
       def remove_frames root, run
         root.reverse_depth_first do |node|
-          frame = run.profile[:frames][node.name.to_i]
+          frame = run.profile[:frames][node.name]
 
           if yield node, frame
             parent = node.parent

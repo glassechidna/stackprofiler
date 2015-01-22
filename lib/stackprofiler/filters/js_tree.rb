@@ -7,19 +7,19 @@ module Stackprofiler
 
       def filter root, run
         addrs = root.content[:addrs]
-        name = addrs.first.to_i
+        name = addrs.first
         frames = run.profile[:frames]
         frame = frames[name]
 
         escaped = addrs.map do |addr|
-          this_frame = frames[addr.to_i]
+          this_frame = frames[addr]
           this_name = CGI::escapeHTML(this_frame[:name])
           "#{this_name} (<b>#{this_frame[:samples]}</b>)"
         end
         text = escaped.join("<br> ↳ ")
 
         sorted_children = root.children.sort_by do |child|
-          addr = child.content[:addrs].first.to_i
+          addr = child.content[:addrs].first
           cframe = frames[addr]
           cframe[:samples]
         end.reverse
