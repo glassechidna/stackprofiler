@@ -1,25 +1,28 @@
 module Stackprofiler
   module Filter
     class RebaseStack
-      attr_accessor :top_names
+      attr_accessor :manual
 
       def initialize(options={})
-        self.top_names = options[:name].presence || RebaseStack.default
+        self.manual = options[:name].presence
       end
 
       def filter root, run
+        suggested = run.profile[:suggested_rebase]
+
         root.find do |node|
           next if node == root
           addr = node.content[:addrs].first.to_i
           frame = run.profile[:frames][addr]
-          top_names.include?(frame[:name]) || run.profile[:suggested_rebase] == addr
-        end || root
-      end
 
-      class << self
-        def default
-          ['Stackprofiler::DataCollector#call', 'block in Stackprofiler#profile']
-        end
+          if manual
+            frame[:name].include? manual
+          elsif suggested.is_a? String
+            suggested == frame[:name]
+          else
+            suggested == addr
+          end
+        end || root
       end
     end
   end
