@@ -8,9 +8,7 @@ module Stackprofiler
       def filter run, run2
         stacks = run.stacks
 
-        root_addr = stacks[0][0]
-        root = StandardWarning.disable { Tree::TreeNode.new root_addr, {addrs: [root_addr]} }
-
+        root = StandardWarning.disable { Tree::TreeNode.new '(Root)', {addrs: [], open: true} }
         all = {root_addr: root}
 
         stacks.each do |stack|

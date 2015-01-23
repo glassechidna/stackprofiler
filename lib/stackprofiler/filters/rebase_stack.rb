@@ -9,6 +9,7 @@ module Stackprofiler
 
       def filter root, run
         root.find do |node|
+          next if node == root
           addr = node.content[:addrs].first.to_i
           frame = run.profile[:frames][addr]
           top_names.include?(frame[:name]) || run.profile[:suggested_rebase] == addr

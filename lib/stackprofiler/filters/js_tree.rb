@@ -16,7 +16,7 @@ module Stackprofiler
           this_name = CGI::escapeHTML(this_frame[:name])
           "#{this_name} (<b>#{this_frame[:samples]}</b>)"
         end
-        text = escaped.join("<br> ↳ ")
+        text = escaped.join("<br> ↳ ").presence || root.name
 
         sorted_children = root.children.sort_by do |child|
           addr = child.content[:addrs].first
