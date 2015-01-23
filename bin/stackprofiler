@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 require 'stackprofiler'
 
-app = Stackprofiler::WebUI.new
-Rack::Server.start app: app, Port: 9292
+app = Rack::URLMap.new '/' => Stackprofiler::WebUI.new
+Rack::Server.start app: app, Port: 9260
