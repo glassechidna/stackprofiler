@@ -69,13 +69,13 @@ module Stackprofiler
     end
 
     get '/frame_names' do
-      name = params[:term]
+      name = params[:term].downcase
       run_id = params[:run_id].to_i
 
       run = RunDataSource.runs[run_id]
       frames = run.profile[:frames]
 
-      matching = frames.select {|addr, f| f[:name].include? name }
+      matching = frames.select {|addr, f| f[:name].downcase.include? name }
       results = matching.map {|addr, f| f[:name] }
 
       content_type 'application/json'
