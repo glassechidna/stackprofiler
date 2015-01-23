@@ -8,7 +8,6 @@ require 'active_support/all'
 require 'sinatra/content_for'
 require 'net/http'
 
-require 'stackprofiler/version'
 require 'stackprofiler/web_ui'
 require 'stackprofiler/run_data_source'
 require 'stackprofiler/run_code_cache'

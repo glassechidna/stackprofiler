@@ -1,11 +1,8 @@
 # coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'stackprofiler/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'stackprofiler'
-  spec.version       = Stackprofiler::VERSION
+  spec.version       = '0.0.3'
   spec.authors       = ['Aidan Steele']
   spec.email         = ['aidan.steele@glassechidna.com.au']
   spec.summary       = %q{Web UI wrapper for the awesome stackprof profiler.}
