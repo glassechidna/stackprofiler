@@ -37,7 +37,7 @@ Or install it yourself as:
 
     $ gem install stackprofiler
 
-## Middleware
+## Rack Middleware
 
 Stackprofiler can be used to measure the performance of Ruby-powered websites
 by using a drop-in Rack middleware. This middleware is provided by a separate
@@ -72,6 +72,12 @@ end
 And the profile results will appear in the Stackprofiler web UI. For running
 instructions, refer to the gem's README.
 
+## Sidekiq Middleware
+
+Stackprofiler can also be used to measure the performance of background jobs
+powered by [Sidekiq][6]. It does this using the [`stackprofiler-sidekiq`][7] middleware
+gem. Have a look at the README for that gem to learn more.
+
 ## Contributing
 
 1. Fork it ( https://github.com/glassechidna/stackprofiler/fork )
@@ -89,3 +95,5 @@ So much. First todo: write a todo list.
 [3]: https://github.com/glassechidna/stackprofiler-middleware
 [4]: https://github.com/glassechidna/pry-stackprofiler
 [5]: https://github.com/pry/pry
+[6]: https://github.com/mperham/sidekiq
+[7]: https://github.com/glassechidna/stackprofiler-sidekiq
