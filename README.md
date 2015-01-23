@@ -23,19 +23,11 @@ rough edges :)
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'stackprofiler'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
     $ gem install stackprofiler
+
+Stackprofiler is a stand-alone Ruby app that can be installed using Rubygems.
+The client gems (see below) should probably be installed as part of a Bundler
+Gemfile.
 
 ## Usage
 
