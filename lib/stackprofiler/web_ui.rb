@@ -85,7 +85,8 @@ module Stackprofiler
     post '/receive' do
       data = request.body.read
       json = Marshal.load(data)
-      run = Run.new 'unknown', json, Time.now
+      name = json[:name] || 'unknown'
+      run = Run.new name, json, Time.now
       RunDataSource.runs << run
 
       # if they sent us a profile, they probably changed something and want that reflected
