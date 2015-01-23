@@ -37,7 +37,16 @@ Or install it yourself as:
 
     $ gem install stackprofiler
 
-## Rack Middleware
+## Usage
+
+Once installed, the Stackprofiler web UI can be started from the terminal by
+running `stackprofiler`. By itself, it won't do much. It will wait for profile
+data to come in from client gems. There are a handful of these gems and they
+are listed below.
+
+## Other gems
+
+### Rack Middleware
 
 Stackprofiler can be used to measure the performance of Ruby-powered websites
 by using a drop-in Rack middleware. This middleware is provided by a separate
@@ -50,7 +59,7 @@ on using this tool on account of that.
 
 Head on over to the README for that gem to learn how to use it.
 
-## Pry Plugin
+### Pry Plugin
 
 Sometimes you want to test some code that isn't part of a Rack app - or is
 just cumbersome to run outside of an IRB console. You can test this code
@@ -72,7 +81,7 @@ end
 And the profile results will appear in the Stackprofiler web UI. For running
 instructions, refer to the gem's README.
 
-## Sidekiq Middleware
+### Sidekiq Middleware
 
 Stackprofiler can also be used to measure the performance of background jobs
 powered by [Sidekiq][6]. It does this using the [`stackprofiler-sidekiq`][7] middleware
