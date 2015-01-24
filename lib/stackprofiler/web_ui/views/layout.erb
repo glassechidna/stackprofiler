@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/vendor/tokenfield/bootstrap-tokenfield.min.css" />
   <link rel="stylesheet" href="/vendor/jquery-ui/jquery-ui.min.css" />
   <link rel="stylesheet" href="/vendor/epoch/epoch.min.css" />
+  <link rel="stylesheet" href="/css/stackprofiler.css" />
   <script src="/vendor/js/jquery.min.js"></script>
   <script src="/vendor/js/bootstrap.min.js"></script>
   <script src="/vendor/jstree/jstree.js"></script>
@@ -19,84 +20,6 @@
   <script src="/vendor/lodash/lodash.min.js"></script>
   <script src="/vendor/ace/ace.js"></script>
   <%= yield_content :head %>
-  <style>
-    body, html {
-      height: 100%;
-    }
-
-    #editor {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-    }
-
-    .ace_gutter { width: 96px; }
-    .ace_gutter-layer { width: 96px !important; }
-    .ace_gutter-cell { padding-left: 0; }
-    .ace_marker-layer .ace-red-100 { background: #ff1e00; position: absolute; }
-    .ace_marker-layer .ace-red-90 { background: #ff341a; position: absolute; }
-    .ace_marker-layer .ace-red-80 { background: #ff4b33; position: absolute; }
-    .ace_marker-layer .ace-red-70 { background: #ff614d; position: absolute; }
-    .ace_marker-layer .ace-red-60 { background: #ff7866; position: absolute; }
-    .ace_marker-layer .ace-red-50 { background: #ff8e80; position: absolute; }
-    .ace_marker-layer .ace-red-40 { background: #ffa599; position: absolute; }
-    .ace_marker-layer .ace-red-30 { background: #ffbbb3; position: absolute; }
-    .ace_marker-layer .ace-red-20 { background: #ffd1cc; position: absolute; }
-    .ace_marker-layer .ace-red-10 { background: #ffe8e6; position: absolute; }
-    .ace_marker-layer .ace-red-0  { background: #ffffff; position: absolute; }
-
-    .fill {
-      top: 67px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      position: absolute;
-      width: auto;
-      height: auto;
-    }
-
-    #github-link {
-      margin-top: -6px;
-      margin-bottom: -6px;
-    }
-
-    #foo {
-      height: 100%;
-    }
-
-    .jstree-default a {
-      white-space:normal !important; height: auto;
-    }
-    .jstree-anchor {
-      height: auto !important;
-    }
-    .jstree-default li > ins {
-      vertical-align:top;
-    }
-    .jstree-leaf {
-      height: auto;
-    }
-    .jstree-leaf a{
-      height: auto !important;
-    }
-
-    .ui-autocomplete {
-      z-index: 5000;
-    }
-
-    .color-box {
-      width: 10px;
-      height: 10px;
-      display: inline-block;
-      background-color: #ccc;
-      margin-right: 10px;
-      /*position: absolute;*/
-      /*left: 5px;*/
-      /*top: 5px;*/
-    }
-  </style>
 </head>
 <body>
 <div class="navbar navbar-default">
