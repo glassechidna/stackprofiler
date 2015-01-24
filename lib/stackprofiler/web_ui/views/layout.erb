@@ -17,11 +17,35 @@
   <script src="/vendor/d3/d3.min.js"></script>
   <script src="/vendor/epoch/epoch.min.js"></script>
   <script src="/vendor/lodash/lodash.min.js"></script>
+  <script src="/vendor/ace/ace.js"></script>
   <%= yield_content :head %>
   <style>
     body, html {
       height: 100%;
     }
+
+    #editor {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    .ace_gutter { width: 96px; }
+    .ace_gutter-layer { width: 96px !important; }
+    .ace_gutter-cell { padding-left: 0; }
+    .ace_marker-layer .ace-red-100 { background: #ff1e00; position: absolute; }
+    .ace_marker-layer .ace-red-90 { background: #ff341a; position: absolute; }
+    .ace_marker-layer .ace-red-80 { background: #ff4b33; position: absolute; }
+    .ace_marker-layer .ace-red-70 { background: #ff614d; position: absolute; }
+    .ace_marker-layer .ace-red-60 { background: #ff7866; position: absolute; }
+    .ace_marker-layer .ace-red-50 { background: #ff8e80; position: absolute; }
+    .ace_marker-layer .ace-red-40 { background: #ffa599; position: absolute; }
+    .ace_marker-layer .ace-red-30 { background: #ffbbb3; position: absolute; }
+    .ace_marker-layer .ace-red-20 { background: #ffd1cc; position: absolute; }
+    .ace_marker-layer .ace-red-10 { background: #ffe8e6; position: absolute; }
+    .ace_marker-layer .ace-red-0  { background: #ffffff; position: absolute; }
 
     .fill {
       top: 67px;

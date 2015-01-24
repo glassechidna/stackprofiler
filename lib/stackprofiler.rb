@@ -1,6 +1,5 @@
 require 'oj'
 require 'tree'
-require 'coderay'
 require 'objspace'
 require 'method_source'
 require 'sinatra/base'
