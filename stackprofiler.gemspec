@@ -2,11 +2,10 @@
 
 Gem::Specification.new do |spec|
   spec.name          = 'stackprofiler'
-  spec.version       = '0.0.3'
+  spec.version       = '0.0.4'
   spec.authors       = ['Aidan Steele']
   spec.email         = ['aidan.steele@glassechidna.com.au']
   spec.summary       = %q{Web UI wrapper for the awesome stackprof profiler.}
-  # spec.description   = %q{TODO: Write a longer description. Optional.}
   spec.homepage      = ''
   spec.license       = 'MIT'
 
