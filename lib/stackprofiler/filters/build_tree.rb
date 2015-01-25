@@ -9,16 +9,15 @@ module Stackprofiler
         stacks = run.stacks
 
         root = StandardWarning.disable { Tree::TreeNode.new '(Root)', {addrs: [], open: true} }
-        all = {root_addr: root}
 
         stacks.each do |stack|
           prev = root
-          iterate stack[1..-1] do |addr|
-            node = all[addr]
+          iterate stack do |addr|
+            # nobody likes hacks, but this halved the page rendering time
+            node = prev.instance_variable_get(:@children_hash)[addr]
             if node.nil?
               hash = {count: 0, addrs: [addr]}
               node = StandardWarning.disable { Tree::TreeNode.new(addr, hash) }
-              all[addr] = node
               prev << node
             end
             node.content[:count] +=1
