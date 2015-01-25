@@ -18,7 +18,7 @@ only reason it has been published this early is as supporting evidence
 for a job application! Please keep that in mind when you find all the
 rough edges :)
 
-![Screenshot](http://i.imgur.com/8UJV9Oo.png)
+![Screenshot](http://i.imgur.com/rDFc4u2.png)
 ![Screenshot](http://i.imgur.com/CsZMXLu.png)
 
 ## Installation
