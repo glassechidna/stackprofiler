@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rb-readline'
   spec.add_development_dependency 'pry-rescue'
   spec.add_development_dependency 'pry-stack_explorer'
+  spec.add_development_dependency 'minitest-power_assert'
 
   spec.add_dependency 'method_source'
   spec.add_dependency 'activesupport'
